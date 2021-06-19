@@ -1,9 +1,6 @@
-FROM lthn/sdk-shell
-
-WORKDIR /home/lthn/wallets
-
+FROM lthn/build:base-ubuntu-20-04
+COPY --from=lthn/sdk-shell /home/lthn/ /home/lthn/
+RUN chmod +x lthn.sh ; ln -s /home/lthn/lthn.sh /usr/bin/lthn
+WORKDIR /home/lthn
 COPY . .
-
-RUN chmod +x lthn.sh ; ln -s /home/lthn/wallets/lthn.sh /usr/bin/lthn
-
-ENTRYPOINT lthn help
+ENTRYPOINT lthn sync
